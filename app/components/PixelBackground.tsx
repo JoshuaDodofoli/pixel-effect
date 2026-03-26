@@ -14,12 +14,38 @@ const PixelBackground = () => {
         setNumberOfBlocks(Math.floor(innerHeight / blockSize));
     }, []);
 
+    useEffect(() => {
+        if (numberOfBlocks === 0) return;
+
+        block.current.forEach((el) => {
+            if (!el) return;
+
+            const randomFlicker = () => {
+                gsap.to(el, {
+                    backgroundColor: "#777AAA",
+                    duration: 0.5,
+                    delay: Math.random() * 50,   
+                    ease: "power3.inOut",    
+                    onComplete: () => {
+                        gsap.to(el, {
+                            backgroundColor: "transparent",
+                            duration: 0.5,
+                            delay: Math.random() * 1,
+                            onComplete: randomFlicker
+                        });
+                    }
+                });
+            };
+            randomFlicker();
+        });
+    }, [numberOfBlocks]);
+
     useGSAP(() => {
         gsap.set(block.current, { backgroundColor: "transparent" });
     }, [numberOfBlocks]);
 
     const handleMouseEnter = (index: number) => {
-        gsap.to(block.current[index], { duration: 0.1, backgroundColor: "#3b82f6" });
+        gsap.to(block.current[index], { duration: 0.1, delay: 0.07, backgroundColor: "#3b82f6" });
     };
 
     const handleMouseLeave = (index: number) => {
