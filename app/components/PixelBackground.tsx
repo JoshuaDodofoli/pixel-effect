@@ -10,7 +10,7 @@ const PixelBackground = () => {
 
     useEffect(() => {
         const { innerWidth, innerHeight } = window;
-        const blockSize = innerWidth * 0.05;
+        const blockSize = innerWidth * 0.02;
         setNumberOfBlocks(Math.floor(innerHeight / blockSize));
     }, []);
 
@@ -32,7 +32,7 @@ const PixelBackground = () => {
             return (
                 <div
                     key={i}
-                    className="w-full h-[5vw] bg-blue-500"
+                    className="w-full h-[2vw] bg-blue-500"
                     onMouseEnter={() => handleMouseEnter(index)}
                     onMouseLeave={() => handleMouseLeave(index)}
                     ref={(el) => { block.current[index] = el }}
@@ -43,8 +43,8 @@ const PixelBackground = () => {
 
     return (
         <div className='w-full flex h-full'>
-            {[...Array(20)].map((_, i) => (
-                <div key={i} className="w-[5vw] h-full">
+            {[...Array(50)].map((_, i) => (
+                <div key={i} className="w-[2vw] h-full">
                     {createBlocks(i)}
                 </div>
             ))}
